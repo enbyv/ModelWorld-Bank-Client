@@ -238,10 +238,9 @@ export default {
         title: 'ARE YOU SURE?',
         type: 'warning',
         text: 'Clicking \'ok\' will clear all wages from all accounts!',
-        dangerMode: true,
-        buttons: true
-      }).then((choice) => {
-        if (choice === true) {
+        showCancelButton: true
+      }).then((result) => {
+        if (result.value) {
           api.request({
             url: '/api/wage/purge',
             method: 'post',
