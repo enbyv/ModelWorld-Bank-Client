@@ -44,7 +44,8 @@
             <span class="input-group-addon">Amount:</span>
             <input v-model="newTransaction.amount" type="text" id="amount-field" class="form-control" />
           </div>
-          <br>
+          <strong v-if="newTransaction.amount > 0">Including fees: {{Number(newTransaction.amount) + 10 | currency}} {{newTransaction.currency}} </strong>
+          <br/><br/>
           <label for="description-field">Description:</label>
           <div class="input-group">
             <span class="input-group-addon">Description:</span>
@@ -143,7 +144,7 @@
         if (value === undefined) {
           value = 0
         }
-
+        console.log(value)
         return value.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')
       }
     }
