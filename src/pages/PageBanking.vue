@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import api from '@/api'
 import errorHandler from '@/errorHandler'
 import AccountOverviewPortal from '@/components/AccountOverviewPortal.vue'
 
@@ -46,7 +46,7 @@ export default {
   },
   mounted: function () {
     let $this = this
-    axios.request({
+    api.request({
       url: '/api/account',
       method: 'get',
       headers: {jwt: this.$store.jwt}

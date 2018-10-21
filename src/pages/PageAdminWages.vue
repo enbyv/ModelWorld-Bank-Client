@@ -148,7 +148,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import api from '@/api'
 import errorHandler from '@/errorHandler'
 import swal from 'sweetalert2'
 
@@ -224,7 +224,7 @@ export default {
   methods: {
     createWage: function (event) {
       let $this = this
-      axios.request({
+      api.request({
         url: '/api/wage',
         method: 'post',
         headers: {jwt: this.$store.jwt},
@@ -242,7 +242,7 @@ export default {
         buttons: true
       }).then((choice) => {
         if (choice === true) {
-          axios.request({
+          api.request({
             url: '/api/wage/purge',
             method: 'post',
             headers: {jwt: this.$store.jwt},
@@ -263,7 +263,7 @@ export default {
         showCancelButton: true
       }).then((result) => {
         if (result.value) {
-          axios.request({
+          api.request({
             url: '/api/request/id/' + wageRequest._id,
             method: 'post',
             headers: {jwt: this.$store.jwt},
@@ -283,7 +283,7 @@ export default {
         showCancelButton: true
       }).then((result) => {
         if (result.value) {
-          axios.request({
+          api.request({
             url: '/api/request/all',
             method: 'post',
             headers: {jwt: this.$store.jwt},
@@ -299,7 +299,7 @@ export default {
     },
     updateWage: function () {
       let $this = this
-      axios.request({
+      api.request({
         url: '/api/wage/id/' + $this.selectedWage._id,
         method: 'put',
         headers: {jwt: this.$store.jwt},
@@ -317,7 +317,7 @@ export default {
         showCancelButton: true
       }).then((result) => {
         if (result.value) {
-          axios.request({
+          api.request({
             url: '/api/wage/id/' + $this.selectedWage._id,
             method: 'delete',
             headers: {jwt: this.$store.jwt}
@@ -329,7 +329,7 @@ export default {
     },
     fetchWages: function () {
       let $this = this
-      axios.request({
+      api.request({
         url: '/api/wage',
         method: 'get',
         headers: {jwt: this.$store.jwt}
@@ -339,7 +339,7 @@ export default {
     },
     fetchRequests: function () {
       let $this = this
-      axios.request({
+      api.request({
         url: '/api/request',
         method: 'get',
         headers: {jwt: this.$store.jwt}

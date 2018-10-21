@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import api from '@/api'
 import jwt from 'jsonwebtoken'
 
 export default {
@@ -22,7 +22,7 @@ export default {
   },
   created: function () {
     console.log('Connecting to API')
-    axios.get('/api/auth/jwt').then((response) => {
+    api.get('/api/auth/jwt').then((response) => {
       console.log('Response Recieved from API')
       this.jwt = response.data.jwt
       this.user = jwt.decode(response.data.jwt)

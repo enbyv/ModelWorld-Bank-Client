@@ -72,7 +72,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import api from '@/api'
 import errorHandler from '@/errorHandler'
 import swal from 'sweetalert2'
 
@@ -120,7 +120,7 @@ export default {
   methods: {
     submitNew: function (event) {
       let $this = this
-      axios.request({
+      api.request({
         url: '/api/account',
         method: 'post',
         headers: {jwt: this.$store.jwt},
@@ -152,7 +152,7 @@ export default {
     },
     fetchAccounts: function () {
       let $this = this
-      axios.request({
+      api.request({
         url: '/api/account/admin',
         method: 'get',
         headers: {jwt: this.$store.jwt}

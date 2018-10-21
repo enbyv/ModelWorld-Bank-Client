@@ -104,7 +104,7 @@
 </template>
 
 <script>
-  import axios from 'axios'
+  import api from '@/api'
   import errorHandler from '@/errorHandler'
   import swal from 'sweetalert2'
   import {betStatus} from '@/globalValues'
@@ -153,7 +153,7 @@
     },
     methods: {
       submitNew: function (event) {
-        axios.request({
+        api.request({
           url: '/api/bet',
           method: 'post',
           headers: {jwt: this.$store.jwt},
@@ -179,7 +179,7 @@
         this.newBet.options.splice(index, 1)
       },
       fetchBets: function () {
-        axios.request({
+        api.request({
           url: '/api/bet',
           method: 'get',
           headers: {jwt: this.$store.jwt}
@@ -202,7 +202,7 @@
             inputOptions
           }).then((result) => {
             if (result.value) {
-              axios.request({
+              api.request({
                 url: '/api/bet/id/' + bet._id + '/status',
                 method: 'put',
                 headers: {jwt: this.$store.jwt},
@@ -213,7 +213,7 @@
             }
           })
         } else {
-          axios.request({
+          api.request({
             url: '/api/bet/id/' + bet._id + '/status',
             method: 'put',
             headers: {jwt: this.$store.jwt},

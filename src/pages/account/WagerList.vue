@@ -16,7 +16,7 @@
 </template>
 
 <script>
-  import axios from 'axios'
+  import api from '@/api'
   import errorHandler from '@/errorHandler'
   // import swal from 'sweetalert2'
 
@@ -53,7 +53,7 @@
     },
     methods: {
       fetchBets: function () {
-        axios.request({
+        api.request({
           url: '/api/wager/account/' + this.$route.params.id,
           method: 'get',
           headers: {jwt: this.$store.jwt}

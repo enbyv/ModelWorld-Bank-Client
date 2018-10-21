@@ -38,7 +38,7 @@
 </template>
 
 <script>
-  import axios from 'axios'
+  import api from '@/api'
   import errorHandler from '@/errorHandler'
   import swal from 'sweetalert2'
 
@@ -89,7 +89,7 @@
     },
     methods: {
       fetchTransactions: function () {
-        axios.request({
+        api.request({
           url: '/api/transaction',
           method: 'get',
           headers: {jwt: this.$store.jwt}
@@ -116,7 +116,7 @@
           showCancelButton: true
         }).then((result) => {
           if (result.value) {
-            axios.request({
+            api.request({
               url: '/api/transaction/id/' + transactionID,
               method: 'delete',
               headers: {jwt: this.$store.jwt}

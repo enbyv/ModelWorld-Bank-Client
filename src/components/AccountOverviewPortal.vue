@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import api from '@/api'
 import errorHandler from '@/errorHandler'
 import {accessLevels} from '@/globalValues'
 
@@ -32,7 +32,7 @@ export default {
     }
   },
   mounted: function () {
-    axios.request({
+    api.request({
       url: '/api/account/id/' + this.account._id + '/transaction',
       method: 'get',
       headers: {jwt: this.$store.jwt}

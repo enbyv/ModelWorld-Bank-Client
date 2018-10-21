@@ -66,7 +66,7 @@
 </template>
 
 <script>
-  import axios from 'axios'
+  import api from '@/api'
   import errorHandler from '@/errorHandler'
   import swal from 'sweetalert2'
   import Fuse from 'fuse.js'
@@ -85,7 +85,7 @@
       }
     },
     mounted: function () {
-      axios.request({
+      api.request({
         url: '/api/account/typeahead',
         method: 'get'
       }).then((response) => {
@@ -102,7 +102,7 @@
           showCancelButton: true
         }).then((result) => {
           if (result.value) {
-            axios.request({
+            api.request({
               url: '/api/account/id/' + this.$route.params.id + '/transaction',
               method: 'post',
               headers: {jwt: this.$store.jwt},

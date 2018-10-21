@@ -217,7 +217,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import api from '@/api'
 import errorHandler from '@/errorHandler'
 import swal from 'sweetalert2'
 import {accessLevels} from '@/globalValues'
@@ -337,7 +337,7 @@ export default {
   methods: {
     fetchAccount: function () {
       let $this = this
-      axios.request({
+      api.request({
         url: '/api/account/id/' + $this.$route.params.id,
         method: 'get',
         headers: {jwt: $this.$store.jwt}
@@ -347,7 +347,7 @@ export default {
     },
     fetchPossibleWages: function () {
       let $this = this
-      axios.request({
+      api.request({
         url: '/api/wage',
         method: 'get',
         headers: {jwt: $this.$store.jwt}
@@ -357,7 +357,7 @@ export default {
     },
     fetchWageRequests: function () {
       let $this = this
-      axios.request({
+      api.request({
         url: '/api/account/id/' + $this.$route.params.id + '/wage',
         method: 'get',
         headers: {jwt: $this.$store.jwt}
@@ -372,7 +372,7 @@ export default {
     },
     fetchTransactions: function () {
       let $this = this
-      axios.request({
+      api.request({
         url: '/api/account/id/' + $this.$route.params.id + '/transaction',
         method: 'get',
         headers: {jwt: $this.$store.jwt}
@@ -457,7 +457,7 @@ export default {
     },
     addUser: function () {
       let $this = this
-      axios.request({
+      api.request({
         url: '/api/account/id/' + $this.$route.params.id + '/user',
         method: 'post',
         headers: {jwt: $this.$store.jwt},
@@ -475,7 +475,7 @@ export default {
         showCancelButton: true
       }).then((result) => {
         if (result.value) {
-          axios.request({
+          api.request({
             url: '/api/account/id/' + $this.$route.params.id + '/wage/' + wage._id,
             method: 'delete',
             headers: {jwt: $this.$store.jwt}
@@ -487,7 +487,7 @@ export default {
     },
     requestWage: function (wageID) {
       let $this = this
-      axios.request({
+      api.request({
         url: '/api/account/id/' + $this.$route.params.id + '/wage',
         method: 'post',
         headers: {jwt: $this.$store.jwt},
@@ -507,7 +507,7 @@ export default {
         showCancelButton: true
       }).then((result) => {
         if (result.value) {
-          axios.request({
+          api.request({
             url: '/api/account/id/' + $this.account._id,
             method: 'delete',
             headers: {jwt: $this.$store.jwt}
@@ -519,7 +519,7 @@ export default {
     },
     payWages: function () {
       let $this = this
-      axios.request({
+      api.request({
         url: '/api/account/id/' + $this.$route.params.id + '/pay',
         method: 'get',
         headers: {jwt: $this.$store.jwt}

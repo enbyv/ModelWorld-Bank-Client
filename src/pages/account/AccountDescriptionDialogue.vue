@@ -22,7 +22,7 @@
 </template>
 
 <script>
-  import axios from 'axios'
+  import api from '@/api'
   import errorHandler from '@/errorHandler'
   import swal from 'sweetalert2'
 
@@ -44,7 +44,7 @@
           showCancelButton: true
         }).then((result) => {
           if (result.value) {
-            axios.request({
+            api.request({
               url: '/api/account/id/' + this.$route.params.id,
               headers: {jwt: this.$store.jwt},
               data: {changes: {description: this.newDescription}},

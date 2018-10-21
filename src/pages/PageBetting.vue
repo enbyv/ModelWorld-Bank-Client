@@ -53,7 +53,7 @@
 </template>
 
 <script>
-  import axios from 'axios'
+  import api from '@/api'
   import errorHandler from '@/errorHandler'
   import Fraction from 'fraction.js'
   import swal from 'sweetalert2'
@@ -69,7 +69,7 @@
     },
     mounted: function () {
       let $this = this
-      axios.request({
+      api.request({
         url: '/api/bet',
         method: 'get',
         headers: {jwt: this.$store.jwt}
@@ -77,7 +77,7 @@
         $this.bets = response.data
       }).catch(errorHandler)
 
-      axios.request({
+      api.request({
         url: '/api/account',
         method: 'get',
         headers: {jwt: this.$store.jwt}
@@ -109,7 +109,7 @@
             bet: bet._id
           }
 
-          axios.request({
+          api.request({
             url: '/api/wager',
             method: 'post',
             headers: {jwt: this.$store.jwt},
