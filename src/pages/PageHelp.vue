@@ -16,13 +16,12 @@
                 <strong>What is Nub International Bank?</strong> <br>
 
                 Nub International Bank is a minigame for the Model World, simulating personal finances for all members.
-                It is gameified so we aren't all sat here worrying about bills to pay, but there will be financial challenges,
-                events and other games to make and lose cash!
+                It is gameified so we aren't all sat here worrying about bills to pay, but there will be financial challenges, events and other games to make and lose cash!
               </li>
               <li class="list-group-item">
                 <strong>Is this canon?</strong> <br>
 
-                  No, we are actively against it being canon purely for the fact that we will have to put a huge amount of work into realism.
+                No, we do not want to make it canon either.
               </li>
               <li class="list-group-item">
                 <strong>How do I login?</strong> <br>
@@ -46,12 +45,13 @@
               <li class="list-group-item">
                 <strong>Are there different types of account?</strong> <br>
 
-                Not yet, but there will be. See the Features FAQ for more information.
+                Not yet, but there will be.
               </li>
               <li class="list-group-item">
                 <strong>The site doesn't look that appealing, Are you going to make it pretty?</strong> <br>
 
-                Our next update is called the UX (User Experience) update. This update will bring a fresh new CSS as well as a new site experience.
+                We are working on new site CSS but we don't have a specialist Web Designer so we are stuck with templates.
+                Please drop me a message if you're able to do this. (tl;dr Stridey sucks at graphic design)
               </li>
               <li class="list-group-item">
                 <strong>Who do I contact for any questions not answered here?</strong> <br>
@@ -73,7 +73,7 @@
               <li class="list-group-item">
                 <strong>How do I request wages?</strong> <br>
 
-                Enter one of your bank accounts and on there is a small table titled Wages, there will be a button to request wages on there.
+                Enter your bank account and on there is a link called Wages, there will be a button to request wages on there.
                 Do not request wages for jobs you don't have, they will be declined.
               </li>
               <li class="list-group-item">
@@ -117,16 +117,14 @@
               <li class="list-group-item">
                 <strong>What can I actually do on this?</strong> <br>
 
-                At the moment due to development issues the built in features are limited, right now you are able to receive your wages,
-                make bets externally and complete peer-2-peer transactions (Bribery, paying for services (design, consulting, advice, press appearances)
-                cash for peers scandals or donations or money laundering, your imagination is your limit.)
-                Once we have released a few more updates you will see what more is possible, see the Roadmap for more information.
+                You are able to receive your wages, make bets and complete peer-2-peer transactions
+                (Bribery, paying for services, design, consulting, advice, press appearances, cash for peers scandals, donations, money laundering, your imagination is your limit.)
 
               </li>
               <li class="list-group-item">
                 <strong>What about feature X?</strong> <br>
 
-                We currently have a slew of features planned in our Roadmap (insert roadmap link), if you wish to request something new then please speak to /u/Padanub
+                We currently have several features in passive development, any suggestions please forward to Padanub or the NiB Discord.
               </li>
               <li class="list-group-item">
                 <strong>What about foreign wages/currencies?</strong> <br>
@@ -137,13 +135,12 @@
               <li class="list-group-item">
                 <strong>Can we bet yet?</strong> <br>
 
-                Yes! Betting will be built into the site after the UX Update, but for now /u/Padanub is running betting off a spreadsheet (ye olde system).
+                Yes, simply go to the betting page using the hyperlinks at the top! Bets will be there for your perusal.
               </li>
               <li class="list-group-item">
                 <strong>How do we bet?</strong> <br>
 
-                An announcement in the NiG Discord will go up when a bet is active, all you need to do transfer the money you're betting to the NubBets Holding Account
-                and use the reference/description "Bet: InsertOptionHere" and we will pick it up. Any incorrectly referenced bets will be returned.
+                An announcement in the NiG Discord will go up when a bet is active, all you need to do is use the built in betting system!
               </li>
               <li class="list-group-item">
                 <strong>Is there a limit on betting?</strong> <br>
