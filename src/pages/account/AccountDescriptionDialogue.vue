@@ -2,7 +2,7 @@
   <div class="col-md-12">
     <div class="panel panel-primary">
       <div class="panel-heading">
-        Account Description
+        Account Settings
       </div>
       <div class="panel-footer">
         <div class="row">
@@ -13,7 +13,15 @@
               <input v-model="newDescription" type="text" class="form-control">
             </div>
             <br>
-            <button type="button" v-on:click="updateDescription" class="btn btn-primary">Save Description</button>
+            <div class="input-group">
+              <label for="sel1">Public Leaderboards:</label>
+              <select v-model="newPublic" class="form-control" id="sel1">
+                <option value="true">True</option>
+                <option value="false">False</option>
+              </select>
+            </div>
+            <br>
+            <button type="button" v-on:click="updateDescription" class="btn btn-primary">Save Settings</button>
           </div>
         </div>
       </div>
@@ -29,10 +37,11 @@
   export default {
     name: 'TransactionDescriptionDialogue',
     store: ['user', 'jwt'],
-    props: ['description'],
+    props: ['description', 'public'],
     data: function () {
       return {
-        newDescription: this.description
+        newDescription: this.description,
+        newPublic: this.public
       }
     },
     methods: {
@@ -47,7 +56,7 @@
             api.request({
               url: '/api/account/id/' + this.$route.params.id,
               headers: {jwt: this.$store.jwt},
-              data: {changes: {description: this.newDescription}},
+              data: {changes: {description: this.newDescription, public: this.newPublic}},
               method: 'put'
             }).then((response) => {
               this.$emit('updatedAccountDescription')

@@ -154,7 +154,7 @@
           </div>
         </div>
       </div>
-      <account-description-dialogue v-if="this.$route.params.sub == 'settings'" v-on:updatedAccountDescription="fetchAccount" :description="account.description"></account-description-dialogue>
+      <account-description-dialogue v-if="this.$route.params.sub == 'settings'" v-on:updatedAccountDescription="fetchAccount" :description="account.description" :public="account.public"></account-description-dialogue>
       <wager-list v-if="this.$route.params.sub == 'bets'"></wager-list>
     </div>
     <div v-if="user.admin && this.$route.params.sub == 'settings'" class="row">
