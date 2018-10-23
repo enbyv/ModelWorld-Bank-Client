@@ -25,6 +25,9 @@
             <li>
               <router-link to="/betting">Betting</router-link>
             </li>
+            <li>
+              <router-link to="/leaderboard">Leaderboard</router-link>
+            </li>
             <!--
             <li>
               <router-link to="/property">Broperty Market</router-link>
