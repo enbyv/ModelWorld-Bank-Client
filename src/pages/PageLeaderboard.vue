@@ -16,7 +16,7 @@
           :rows="allAccounts.rows"
           :line-numbers="true"
           :search-options="{
-            enabled: true
+            enabled: false
           }"
           :pagination-options="{
             enabled: false
