@@ -47,12 +47,6 @@
     store: ['user', 'jwt', 'currencies'],
     data: function () {
       return {
-        newAccount: {
-          name: 'X\'s Personal Account',
-          description: 'Premium personal banking',
-          owner: 'X',
-          public: true
-        },
         allTransactions: {
           columns: [
             {

@@ -10,7 +10,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#"><img height="100%"  src="../assets/logo.png"></a>
+          <a class="navbar-brand" href="#"><img height="100%"  src="../assets/nubbank.png"></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -24,6 +24,9 @@
             </li>
             <li>
               <router-link to="/betting">Betting</router-link>
+            </li>
+            <li>
+              <router-link to="/leaderboard">Leaderboard</router-link>
             </li>
             <!--
             <li>

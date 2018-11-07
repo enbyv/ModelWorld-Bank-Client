@@ -52,12 +52,14 @@
             <input v-model="newTransaction.description" type="text" id="description-field" class="form-control" />
           </div>
           <br>
+          <!--
           <div class="input-group">
             <label for="sel1">Currency:</label>
             <select v-model="newTransaction.currency" class="form-control" id="sel1">
               <option v-for='currency in currencies'>{{currency}}</option>
             </select>
           </div>
+          -->
           <br>
           <button type="button" v-on:click="addTransaction" class="btn btn-primary">Submit Transaction</button>
         </div>
@@ -78,7 +80,8 @@
     data: function () {
       return {
         newTransaction: {
-          target: ''
+          target: '',
+          currency: 'GBP'
         },
         typeahead: [],
         query: '',

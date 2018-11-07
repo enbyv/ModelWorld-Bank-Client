@@ -4,5 +4,5 @@ export default {
     admin: false
   },
   jwt: null,
-  currencies: ['GBP', 'USD']
+  currencies: ['GBP']
 }
