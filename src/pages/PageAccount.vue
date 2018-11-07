@@ -209,10 +209,10 @@
             :paginate="true"
             styleClass="table table-bordered condensed">
               <template slot="table-row" scope="props">
-                <td>{{ props.row.name }}</td>
-                <td>{{ props.row.description}}</td>
-                <td>{{ props.row.value | currency }}</td>
-                <td><button type="button" v-on:click="requestWage(props.row._id)" class="btn btn-primary">Request</button></td>
+                <span v-if="props.column.field === 'name'">{{ props.row.name }}</span>
+                <span v-if="props.column.field === 'description'">{{ props.row.description }}</span>
+                <span v-if="props.column.field === 'value'">{{ props.row.value | currency }}</span>
+                <span v-if="props.column.field === 'request'"><button type="button" v-on:click="requestWage(props.row._id)" class="btn btn-primary">Request</button></span>
               </template>
             </vue-good-table>
           </div>

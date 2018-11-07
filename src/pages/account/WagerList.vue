@@ -11,7 +11,8 @@
             enabled: true
           }"
         :pagination-options="{
-            enabled: true
+            enabled: true,
+            initialSortBy: {field: 'created', type: 'desc'}
           }">
       </vue-good-table>
     </div>
@@ -31,6 +32,10 @@
         bets: [],
         betTable: [
           {
+            label: 'Created',
+            field: 'created'
+          },
+          {
             label: 'Bet ID',
             field: '_id'
           },
@@ -45,10 +50,6 @@
           {
             label: 'Option',
             field: 'chosenOption.name'
-          },
-          {
-            label: 'Created',
-            field: 'created'
           }
         ]
 
