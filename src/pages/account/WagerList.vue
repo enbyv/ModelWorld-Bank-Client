@@ -7,8 +7,12 @@
       <vue-good-table
         :columns="betTable"
         :rows="bets"
-        :filterable="true"
-        :globalSearch="true"
+        :search-options="{
+            enabled: true
+          }"
+        :pagination-options="{
+            enabled: true
+          }"
         styleClass="table table-bordered condensed">
       </vue-good-table>
     </div>
@@ -59,7 +63,6 @@
           headers: {jwt: this.$store.jwt}
         }).then((response) => {
           response.data.forEach((wager) => {
-            console.log(wager)
             wager.chosenOption = null
 
             wager.bet.options.forEach((option) => {
