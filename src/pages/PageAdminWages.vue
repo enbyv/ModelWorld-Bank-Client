@@ -14,17 +14,19 @@
           <vue-good-table
           :columns="tables.wages"
           :rows="wages"
-          :filterable="true"
-          :globalSearch="true"
-          :paginate="true"
+          :search-options="{
+            enabled: true
+          }"
+          :pagination-options="{
+            enabled: true
+          }"
           >
             <template slot="table-row" scope="props">
-              <td><strong>{{ props.row._id }}</strong></td>
-              <td>{{ props.row.name }}</td>
-              <td>{{ props.row.description }}</td>
-              <td>{{ props.row.value | currency}}</td>
-              <td>{{ props.row.currency}}</td>
-              <td><button class="btn btn-primary" v-on:click="selectWage(props.row)" data-toggle="modal" data-target="#wageModal">Modify Wage</button></td>
+              <span v-if="props.column.field === '_id'"><strong>{{ props.row._id }}</strong></span>
+              <span v-if="props.column.field === 'name'">{{ props.row.name }}</span>
+              <span v-if="props.column.field === 'description'">{{ props.row.description }}</span>
+              <span v-if="props.column.field === 'value'">{{ props.row.value | currency}} {{ props.row.currency}}</span>
+              <span v-if="props.column.field === 'buttons'"><button class="btn btn-primary" v-on:click="selectWage(props.row)" data-toggle="modal" data-target="#wageModal">Modify Wage</button></span>
             </template>
           </vue-good-table>
         </div>
@@ -76,23 +78,24 @@
           <vue-good-table
           :columns="tables.wageRequests"
           :rows="wageRequests"
-          :filterable="true"
-          :globalSearch="true"
-          :paginate="true"
+          :search-options="{
+            enabled: true
+          }"
+          :pagination-options="{
+            enabled: true
+          }"
           >
             <template slot="table-row" scope="props">
-              <td><strong>{{ props.row._id }}</strong></td>
-              <td>{{ props.row.wage._id }}</td>
-              <td>{{ props.row.account.name}}</td>
-              <td>{{ props.row.wage.name}}</td>
-              <td>{{ props.row.user}}</td>
-              <td>{{ props.row.created}}</td>
-              <td>
+              <span v-if="props.column.field === '_id'"><strong>{{ props.row._id }}</strong></span>
+              <span v-if="props.column.field === 'wage._id'">{{ props.row.wage._id }}</span>
+              <span v-if="props.column.field === 'account.name'">{{ props.row.account.name}}</span>
+              <span v-if="props.column.field === 'wage.name'">{{ props.row.wage.name}}</span>
+              <span v-if="props.column.field === 'user'">{{ props.row.user}}</span>
+              <span v-if="props.column.field === 'created'">{{ props.row.created}}</span>
+              <span v-if="props.column.field === 'buttons'">
                 <button class="btn btn-success" v-on:click="decideRequest(props.row, true)">Accept</button>
-              </td>
-              <td>
                 <button class="btn btn-danger" v-on:click="decideRequest(props.row, false)">Deny</button>
-              </td>
+              </span>
             </template>
           </vue-good-table>
           <div class="panel-footer">
@@ -162,49 +165,62 @@ export default {
       tables: {
         wages: [
           {
-            label: 'ID'
+            label: 'ID',
+            field: '_id',
+            sortable: false
           },
           {
-            label: 'Name'
+            label: 'Name',
+            field: 'name'
           },
           {
-            label: 'Description'
+            label: 'Description',
+            field: 'description'
           },
           {
-            label: 'Value'
+            label: 'Value',
+            field: 'value',
+            type: 'decimal'
           },
           {
-            label: 'Currency'
-          },
-          {
-            label: 'Buttons'
+            label: 'Buttons',
+            field: 'buttons',
+            sortable: false
           }
         ],
         wageRequests: [
           {
-            label: 'Request ID'
+            label: 'Request ID',
+            field: '_id',
+            sortable: false
           },
           {
-            label: 'Wage ID'
+            label: 'Wage ID',
+            sortable: false,
+            field: 'wage._id'
           },
           {
-            label: 'Account Name'
+            label: 'Account Name',
+            field: 'account.name'
           },
           {
-            label: 'Wage Name'
+            label: 'Wage Name',
+            field: 'wage.name'
           },
           {
-            label: 'User'
+            label: 'User',
+            field: 'user'
           },
           {
-            label: 'Requested Time'
+            label: 'Requested Time',
+            field: 'created',
+            type: 'decimal'
           },
           {
-            label: 'Accept'
+            label: 'Buttons',
+            field: 'buttons',
+            sortable: false
           },
-          {
-            label: 'Deny'
-          }
         ]
       },
       wagesQueue: [],
