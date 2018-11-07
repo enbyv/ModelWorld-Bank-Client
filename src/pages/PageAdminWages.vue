@@ -14,17 +14,19 @@
           <vue-good-table
           :columns="tables.wages"
           :rows="wages"
-          :filterable="true"
-          :globalSearch="true"
-          :paginate="true"
+          :search-options="{
+            enabled: true
+          }"
+          :pagination-options="{
+            enabled: true
+          }"
           >
             <template slot="table-row" scope="props">
-              <td><strong>{{ props.row._id }}</strong></td>
-              <td>{{ props.row.name }}</td>
-              <td>{{ props.row.description }}</td>
-              <td>{{ props.row.value | currency}}</td>
-              <td>{{ props.row.currency}}</td>
-              <td><button class="btn btn-primary" v-on:click="selectWage(props.row)" data-toggle="modal" data-target="#wageModal">Modify Wage</button></td>
+              <span v-if="props.column.field === '_id'"><strong>{{ props.row._id }}</strong></span>
+              <span v-if="props.column.field === 'name'">{{ props.row.name }}</span>
+              <span v-if="props.column.field === 'description'">{{ props.row.description }}</span>
+              <span v-if="props.column.field === 'value'">{{ props.row.value | currency}} {{ props.row.currency}}</span>
+              <span v-if="props.column.field === 'buttons'"><button class="btn btn-primary" v-on:click="selectWage(props.row)" data-toggle="modal" data-target="#wageModal">Modify Wage</button></span>
             </template>
           </vue-good-table>
         </div>
@@ -162,22 +164,25 @@ export default {
       tables: {
         wages: [
           {
-            label: 'ID'
+            label: 'ID',
+            field: '_id'
           },
           {
-            label: 'Name'
+            label: 'Name',
+            field: 'name'
           },
           {
-            label: 'Description'
+            label: 'Description',
+            field: 'description'
           },
           {
-            label: 'Value'
+            label: 'Value',
+            field: 'value'
           },
           {
-            label: 'Currency'
-          },
-          {
-            label: 'Buttons'
+            label: 'Buttons',
+            field: 'buttons',
+            sortable: false
           }
         ],
         wageRequests: [
