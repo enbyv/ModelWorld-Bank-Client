@@ -7,9 +7,13 @@
       <vue-good-table
         :columns="betTable"
         :rows="bets"
-        :filterable="true"
-        :globalSearch="true"
-        styleClass="table table-bordered condensed">
+        :search-options="{
+            enabled: true
+          }"
+        :pagination-options="{
+            enabled: true,
+            initialSortBy: {field: 'created', type: 'desc'}
+          }">
       </vue-good-table>
     </div>
   </div>
@@ -28,6 +32,10 @@
         bets: [],
         betTable: [
           {
+            label: 'Created',
+            field: 'created'
+          },
+          {
             label: 'Bet ID',
             field: '_id'
           },
@@ -42,10 +50,6 @@
           {
             label: 'Option',
             field: 'chosenOption.name'
-          },
-          {
-            label: 'Created',
-            field: 'created'
           }
         ]
 
@@ -59,7 +63,6 @@
           headers: {jwt: this.$store.jwt}
         }).then((response) => {
           response.data.forEach((wager) => {
-            console.log(wager)
             wager.chosenOption = null
 
             wager.bet.options.forEach((option) => {

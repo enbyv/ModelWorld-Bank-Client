@@ -6,6 +6,7 @@ import router from './router'
 import VueStash from 'vue-stash'
 import store from '@/store'
 import VueGoodTable from 'vue-good-table'
+import 'vue-good-table/dist/vue-good-table.css'
 import bootstrap from 'bootstrap'
 
 Vue.config.productionTip = false
