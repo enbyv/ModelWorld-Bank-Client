@@ -56,16 +56,22 @@
           <vue-good-table
           :columns="tables.transactions"
           :rows="transactions"
-          :filterable="true"
-          :globalSearch="true"
-          :paginate="true"
-          :defaultSortBy="{field: 'created', type: 'desc'}"
+          :search-options="{
+            enabled: true
+          }"
+          :pagination-options="{
+            enabled: true
+          }"
+          :sort-options="{
+            enabled: true,
+            initialSortBy: {field: 'created', type: 'desc'}
+          }"
           >
             <template slot="table-row" scope="props">
-              <td>{{ props.row.created | dateString}}</td>
-              <td>{{ props.row.amount | currency }} {{ props.row.currency }}</td>
-              <td :title="props.row.other._id"><strong>{{ props.row.other.name }}</strong></td>
-              <td :title="props.row._id">{{ props.row.description }}</td>
+              <span v-if="props.column.field === 'created'">{{ props.row.created | dateString}}</span>
+              <span v-if="props.column.field === 'amount'">{{ props.row.amount | currency }} {{ props.row.currency }}</span>
+              <span :title="props.row.other._id" v-if="props.column.field === 'other.name'"><strong>{{ props.row.other.name }}</strong></span>
+              <span :title="props.row._id" v-if="props.column.field === 'description'">{{ props.row.description }}</span>
             </template>
           </vue-good-table>
           <div class="panel-footer">
@@ -154,7 +160,7 @@
           </div>
         </div>
       </div>
-      <account-description-dialogue v-if="this.$route.params.sub == 'settings'" v-on:updatedAccountDescription="fetchAccount" :description="account.description"></account-description-dialogue>
+      <account-description-dialogue v-if="this.$route.params.sub == 'settings'" v-on:updatedAccountDescription="fetchAccount" :description="account.description" :public="account.public"></account-description-dialogue>
       <wager-list v-if="this.$route.params.sub == 'bets'"></wager-list>
     </div>
     <div v-if="user.admin && this.$route.params.sub == 'settings'" class="row">
@@ -289,10 +295,14 @@ export default {
             type: 'decimal'
           },
           {
-            label: 'Other Account'
+            label: 'Other Account',
+            field: 'other.name',
+            sortable: false
           },
           {
-            label: 'Description'
+            label: 'Description',
+            field: 'description',
+            sortable: false
           }
         ],
         wagesList: [
