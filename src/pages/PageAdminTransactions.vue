@@ -14,21 +14,27 @@
           <vue-good-table
             :columns="allTransactions.columns"
             :rows="allTransactions.rows"
-            :filterable="true"
-            :globalSearch="true"
-            :paginate="true"
-            :defaultSortBy="{field: 'created', type: 'desc'}"
+            :search-options="{
+              enabled: true
+            }"
+            :pagination-options="{
+              enabled: true
+            }"
+            :sort-options="{
+              enabled: true,
+              initialSortBy: {field: 'created', type: 'desc'}
+            }"
           >
             <template slot="table-row" scope="props">
-              <td><strong>{{ props.row._id }}</strong></td>
-              <td><router-link :to="'/account/' + props.row.from">{{ props.row.from }}</router-link></td>
-              <td><router-link :to="'/account/' + props.row.to">{{ props.row.to }}</router-link></td>
-              <td>{{ props.row.amount | currency}}</td>
-              <td>{{ props.row.description}}</td>
-              <td>{{ props.row.created | dateString}}</td>
-              <td>
+              <span v-if="props.column.field === '_id'"><strong>{{ props.row._id }}</strong></span>
+              <span v-if="props.column.field === 'from'"><router-link :to="'/account/' + props.row.from">{{ props.row.from }}</router-link></span>
+              <span v-if="props.column.field === 'to'"><router-link :to="'/account/' + props.row.to">{{ props.row.to }}</router-link></span>
+              <span v-if="props.column.field === 'amount'">{{ props.row.amount | currency}}</span>
+              <span v-if="props.column.field === 'description'">{{ props.row.description}}</span>
+              <span v-if="props.column.field === 'created'">{{ props.row.created | dateString}}</span>
+              <span v-if="props.column.field === 'buttons'">
                 <button class="btn btn-danger" v-on:click="deleteTransaction(props.row._id)">Delete</button>
-              </td>
+              </span>
             </template>
           </vue-good-table>
         </div>
@@ -63,18 +69,23 @@
             },
             {
               label: 'Amount',
-              field: 'amount'
+              field: 'amount',
+              type: 'decimal'
             },
             {
               label: 'Description',
-              field: 'description'
+              field: 'description',
+              sortable: false
             },
             {
               label: 'Created Date',
-              field: 'created'
+              field: 'created',
+              type: 'decimal'
             },
             {
-              label: 'Buttons'
+              label: 'Buttons',
+              field: 'buttons',
+              sortable: false
             }
           ],
           rows: []

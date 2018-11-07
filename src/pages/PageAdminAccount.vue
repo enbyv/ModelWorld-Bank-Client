@@ -52,17 +52,24 @@
           <vue-good-table
           :columns="allAccounts.columns"
           :rows="allAccounts.rows"
-          :filterable="true"
-          :globalSearch="true"
-          :paginate="true"
+          :search-options="{
+            enabled: true
+          }"
+          :pagination-options="{
+            enabled: true
+          }"
+          :sort-options="{
+            enabled: true,
+            initialSortBy: {field: 'created', type: 'desc'}
+          }"
           >
             <template slot="table-row" scope="props">
-              <td><strong>{{ props.row._id }}</strong></td>
-              <td>{{ props.row.name }}</td>
-              <td>{{ props.row.description }}</td>
-              <td>{{ props.row.public}}</td>
-              <td>{{ props.row.created}}</td>
-              <td><router-link :to="'/account/' + props.row._id" type="button" class="btn btn-primary">Access Account</router-link></td>
+              <span v-if="props.column.field === '_id'"><strong>{{ props.row._id }}</strong></span>
+              <span v-if="props.column.field === 'name'">{{ props.row.name }}</span>
+              <span v-if="props.column.field === 'description'">{{ props.row.description }}</span>
+              <span v-if="props.column.field === 'public'">{{ props.row.public}}</span>
+              <span v-if="props.column.field === 'created'">{{ props.row.created | dateString}}</span>
+              <span v-if="props.column.field === 'buttons'"><router-link :to="'/account/' + props.row._id" type="button" class="btn btn-primary">Access Account</router-link></span>
             </template>
           </vue-good-table>
         </div>
@@ -103,14 +110,17 @@ export default {
           },
           {
             label: 'Public?',
-            field: 'public'
+            field: 'public',
+            type: 'boolean'
           },
           {
             label: 'Created Date',
             field: 'created'
           },
           {
-            label: 'Buttons'
+            label: 'Buttons',
+            field: 'buttons',
+            sortable: false
           }
         ],
         rows: []
@@ -163,6 +173,13 @@ export default {
   },
   mounted: function () {
     this.fetchAccounts()
+  },
+  filters: {
+    dateString: function (dateIn) {
+      let date = new Date(dateIn)
+      let string = date.toLocaleString('en-GB')
+      return string
+    }
   }
 }
 </script>
