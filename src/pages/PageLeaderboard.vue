@@ -27,7 +27,7 @@
           }">
             <template slot="table-row" scope="props">
               <span :title="props.row.name" v-if="props.column.field === 'name'"><strong>{{ props.row.name }}</strong></span>
-              <span v-if="props.column.field === 'balance'">{{ props.row.balance }}</span>
+              <span v-if="props.column.field === 'balance'">{{ props.row.balance | currency }}</span>
             </template>
           </vue-good-table>
         </div>
@@ -56,7 +56,6 @@ export default {
             label: 'Balance',
             field: 'balance',
             type: 'decimal',
-            formatFn: this.formatBalance
           },
         ],
         rows: []
@@ -76,13 +75,13 @@ export default {
       }).catch(errorHandler)
     }
   },
+  filters: {
+    currency: function (value) {
+      return '£' + value.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')
+    }
+  },
   mounted: function () {
     this.fetchAccounts()
-  },
-  formatBalance: function(value) {
-    return Math.round((value + 0.00001) * 100) / 100;
-    // apparently this doesn't work. would like to format with a £ but that doesn't work either
-    // guess i'll die lol
   }
 }
 </script>
