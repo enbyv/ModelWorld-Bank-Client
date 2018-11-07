@@ -78,23 +78,26 @@
           <vue-good-table
             :columns="allBets.columns"
             :rows="allBets.rows"
-            :filterable="true"
-            :globalSearch="true"
-            :paginate="true"
+            :search-options="{
+              enabled: true
+            }"
+            :pagination-options="{
+              enabled: true
+            }"
           >
             <template slot="table-row" scope="props">
-              <td><strong>{{ props.row._id }}</strong></td>
-              <td>{{ props.row.name }}</td>
-              <td>{{ props.row.description }}</td>
-              <td>{{ props.row.status | statusConversion}}</td>
-              <td>{{ props.row.created}}</td>
-              <td>
+              <span v-if="props.column.field === '_id'"><strong>{{ props.row._id }}</strong></span>
+              <span v-if="props.column.field === 'name'">{{ props.row.name }}</span>
+              <span v-if="props.column.field === 'description'">{{ props.row.description }}</span>
+              <span v-if="props.column.field === 'status'">{{ props.row.status | statusConversion}}</span>
+              <span v-if="props.column.field === 'created'">{{ props.row.created | dateString}}</span>
+              <span v-if="props.column.field === 'buttons'">
                 <button type="button" class="btn btn-primary">Edit Bet</button>
 
                 <button v-if="props.row.status == 1" v-on:click="updateStatus(props.row, 'Closed')" type="button" class="btn btn-primary">Close</button>
                 <button v-if="props.row.status == 0" v-on:click="updateStatus(props.row, 'Open')" type="button" class="btn btn-primary">Open</button>
                 <button v-if="props.row.status == 0" v-on:click="updateStatus(props.row, 'Paid')" type="button" class="btn btn-primary">Pay Out</button>
-              </td>
+              </span>
             </template>
           </vue-good-table>
         </div>
@@ -144,7 +147,9 @@
               field: 'created'
             },
             {
-              label: 'Buttons'
+              label: 'Buttons',
+              field: 'buttons',
+              sortable: false
             }
           ],
           rows: []
@@ -231,6 +236,11 @@
     filters: {
       statusConversion: function (number) {
         return betStatus[number]
+      },
+      dateString: function (dateIn) {
+        let date = new Date(dateIn)
+        let string = date.toLocaleString('en-GB')
+        return string
       }
     }
   }
