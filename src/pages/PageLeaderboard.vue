@@ -19,7 +19,7 @@
             enabled: true
           }"
           :pagination-options="{
-            enabled: true
+            enabled: false
           }"
           :sort-options="{
             enabled: true,
