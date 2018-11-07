@@ -14,15 +14,20 @@
           <vue-good-table
           :columns="allAccounts.columns"
           :rows="allAccounts.rows"
-          :paginate="true"
+          :line-numbers="true"
+          :search-options="{
+            enabled: true
+          }"
+          :pagination-options="{
+            enabled: false
+          }"
           :sort-options="{
-          enabled: true,
-          initialSortBy: {field: 'balance', type: 'desc'}
-           }">
+            enabled: true,
+            initialSortBy: {field: 'balance', type: 'desc'}
+          }">
             <template slot="table-row" scope="props">
-              <td>{{ props.row.name }}</td>
-              <td>{{ props.row.description }}</td>
-              <td>{{ props.row.balance}}</td>
+              <span :title="props.row.name" v-if="props.column.field === 'name'"><strong>{{ props.row.name }}</strong></span>
+              <span v-if="props.column.field === 'balance'">{{ props.row.balance | currency }}</span>
             </template>
           </vue-good-table>
         </div>
@@ -44,16 +49,13 @@ export default {
         columns: [
           {
             label: 'Name',
-            field: 'name'
-          },
-          {
-            label: 'Description',
-            field: 'description'
+            field: 'name',
+            sortable: false
           },
           {
             label: 'Balance',
             field: 'balance',
-            type: 'number'
+            type: 'decimal',
           },
         ],
         rows: []
@@ -71,6 +73,11 @@ export default {
         this.allAccounts.rows = response.data.leaderboard
         console.log(response.data.lastUpdated)
       }).catch(errorHandler)
+    }
+  },
+  filters: {
+    currency: function (value) {
+      return '£' + value.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')
     }
   },
   mounted: function () {
