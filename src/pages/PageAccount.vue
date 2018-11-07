@@ -135,13 +135,10 @@
           <vue-good-table
           :columns="tables.users"
           :rows="account.users"
-          :filterable="true"
-          :globalSearch="true"
-          :paginate="true"
           >
             <template slot="table-row" scope="props">
-              <td>{{ props.row.name }}</td>
-              <td>{{ props.row.level | accessLevel }}</td>
+              <span v-if="props.column.field === 'name'">{{ props.row.name }}</span>
+              <span v-if="props.column.field === 'level'">{{ props.row.level | accessLevel }}</span>
             </template>
           </vue-good-table>
           <div class="panel-footer">

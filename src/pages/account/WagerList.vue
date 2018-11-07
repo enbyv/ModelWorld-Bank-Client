@@ -12,8 +12,7 @@
           }"
         :pagination-options="{
             enabled: true
-          }"
-        styleClass="table table-bordered condensed">
+          }">
       </vue-good-table>
     </div>
   </div>
