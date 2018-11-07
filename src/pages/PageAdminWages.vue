@@ -78,23 +78,24 @@
           <vue-good-table
           :columns="tables.wageRequests"
           :rows="wageRequests"
-          :filterable="true"
-          :globalSearch="true"
-          :paginate="true"
+          :search-options="{
+            enabled: true
+          }"
+          :pagination-options="{
+            enabled: true
+          }"
           >
             <template slot="table-row" scope="props">
-              <td><strong>{{ props.row._id }}</strong></td>
-              <td>{{ props.row.wage._id }}</td>
-              <td>{{ props.row.account.name}}</td>
-              <td>{{ props.row.wage.name}}</td>
-              <td>{{ props.row.user}}</td>
-              <td>{{ props.row.created}}</td>
-              <td>
+              <span v-if="props.column.field === '_id'"><strong>{{ props.row._id }}</strong></span>
+              <span v-if="props.column.field === 'wage._id'">{{ props.row.wage._id }}</span>
+              <span v-if="props.column.field === 'account.name'">{{ props.row.account.name}}</span>
+              <span v-if="props.column.field === 'wage.name'">{{ props.row.wage.name}}</span>
+              <span v-if="props.column.field === 'user'">{{ props.row.user}}</span>
+              <span v-if="props.column.field === 'created'">{{ props.row.created}}</span>
+              <span v-if="props.column.field === 'buttons'">
                 <button class="btn btn-success" v-on:click="decideRequest(props.row, true)">Accept</button>
-              </td>
-              <td>
                 <button class="btn btn-danger" v-on:click="decideRequest(props.row, false)">Deny</button>
-              </td>
+              </span>
             </template>
           </vue-good-table>
           <div class="panel-footer">
@@ -165,7 +166,8 @@ export default {
         wages: [
           {
             label: 'ID',
-            field: '_id'
+            field: '_id',
+            sortable: false
           },
           {
             label: 'Name',
@@ -177,7 +179,8 @@ export default {
           },
           {
             label: 'Value',
-            field: 'value'
+            field: 'value',
+            type: 'decimal'
           },
           {
             label: 'Buttons',
@@ -187,29 +190,37 @@ export default {
         ],
         wageRequests: [
           {
-            label: 'Request ID'
+            label: 'Request ID',
+            field: '_id',
+            sortable: false
           },
           {
-            label: 'Wage ID'
+            label: 'Wage ID',
+            sortable: false,
+            field: 'wage._id'
           },
           {
-            label: 'Account Name'
+            label: 'Account Name',
+            field: 'account.name'
           },
           {
-            label: 'Wage Name'
+            label: 'Wage Name',
+            field: 'wage.name'
           },
           {
-            label: 'User'
+            label: 'User',
+            field: 'user'
           },
           {
-            label: 'Requested Time'
+            label: 'Requested Time',
+            field: 'created',
+            type: 'decimal'
           },
           {
-            label: 'Accept'
+            label: 'Buttons',
+            field: 'buttons',
+            sortable: false
           },
-          {
-            label: 'Deny'
-          }
         ]
       },
       wagesQueue: [],
