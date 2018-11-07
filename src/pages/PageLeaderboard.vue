@@ -14,15 +14,20 @@
           <vue-good-table
           :columns="allAccounts.columns"
           :rows="allAccounts.rows"
-          :paginate="true"
+          :line-numbers="true"
+          :search-options="{
+            enabled: true
+          }"
+          :pagination-options="{
+            enabled: true
+          }"
           :sort-options="{
-          enabled: true,
-          initialSortBy: {field: 'balance', type: 'desc'}
-           }">
+            enabled: true,
+            initialSortBy: {field: 'balance', type: 'desc'}
+          }">
             <template slot="table-row" scope="props">
-              <td>{{ props.row.name }}</td>
-              <td>{{ props.row.description }}</td>
-              <td>{{ props.row.balance}}</td>
+              <span :title="props.row.name" v-if="props.column.field === 'name'"><strong>{{ props.row.name }}</strong></span>
+              <span v-if="props.column.field === 'balance'">{{ props.row.balance }}</span>
             </template>
           </vue-good-table>
         </div>
@@ -44,16 +49,14 @@ export default {
         columns: [
           {
             label: 'Name',
-            field: 'name'
-          },
-          {
-            label: 'Description',
-            field: 'description'
+            field: 'name',
+            sortable: false
           },
           {
             label: 'Balance',
             field: 'balance',
-            type: 'number'
+            type: 'decimal',
+            formatFn: this.formatBalance
           },
         ],
         rows: []
@@ -75,6 +78,11 @@ export default {
   },
   mounted: function () {
     this.fetchAccounts()
+  },
+  formatBalance: function(value) {
+    return Math.round((value + 0.00001) * 100) / 100;
+    // apparently this doesn't work. would like to format with a £ but that doesn't work either
+    // guess i'll die lol
   }
 }
 </script>
