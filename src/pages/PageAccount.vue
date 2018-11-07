@@ -89,17 +89,23 @@
           <vue-good-table
           :columns="tables.wages"
           :rows="account.wages"
-          :filterable="true"
-          :globalSearch="true"
-          :paginate="true"
+          :search-options="{
+            enabled: true
+          }"
+          :pagination-options="{
+            enabled: true
+          }"
+          :sort-options="{
+            enabled: true,
+            initialSortBy: {field: 'value', type: 'desc'}
+          }"
           >
             <template slot="table-row" scope="props">
-              <td><strong>{{ props.row._id }}</strong></td>
-              <td>{{ props.row.name }}</td>
-              <td>{{ props.row.description }}</td>
-              <td>{{ props.row.value | currency}}</td>
-              <td>{{ props.row.currency}}</td>
-              <td><button class="btn btn-danger" v-on:click="deleteWage(props.row)">Remove</button></td>
+              <span v-if="props.column.field === '_id'"><strong>{{ props.row._id }}</strong></span>
+              <span v-if="props.column.field === 'name'">{{ props.row.name }}</span>
+              <span v-if="props.column.field === 'description'">{{ props.row.description }}</span>
+              <span v-if="props.column.field === 'value'">{{ props.row.value | currency}} {{props.row.currency}}</span>
+              <span v-if="props.column.field === 'delete'"><button class="btn btn-danger" v-on:click="deleteWage(props.row)">Remove</button></span>
             </template>
           </vue-good-table>
           <table class="table table-striped table-bordered">
@@ -276,11 +282,9 @@ export default {
             type: 'decimal'
           },
           {
-            label: 'Currency',
-            field: 'currency'
-          },
-          {
-            label: 'Delete'
+            label: 'Delete',
+            field: 'delete',
+            sortable: false
           }
         ],
         transactions: [
@@ -320,7 +324,9 @@ export default {
             type: 'decimal'
           },
           {
-            label: 'Request'
+            label: 'Request',
+            field: 'request',
+            sortable: false
           }
         ],
         wageRequests: [
