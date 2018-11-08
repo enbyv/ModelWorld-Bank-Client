@@ -60,6 +60,9 @@
             <li>
               <a href="https://discord.gg/MXkYHyB">Discord</a>
             </li>
+            <li>
+              <a>C:{{version}} | S:{{serverVersion}}</a>
+            </li>
             <li v-if="user.admin" class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin Menu
                 <span class="caret"></span>
@@ -93,12 +96,22 @@
 </template>
 
 <script>
+import { version } from '../../package'
+import api from '../api'
+
 export default {
   name: 'navbar',
   store: ['user'],
   data: function () {
     return {
+      version: process.env.NODE_ENV === 'production' ? version : 'DEV',
+      serverVersion: '...'
     }
+  },
+  mounted: function () {
+    api.get('/api/health').then((res) => {
+      this.serverVersion = res.data.version
+    })
   }
 }
 </script>
