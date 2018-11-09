@@ -35,6 +35,13 @@
                   <option value="false">False</option>
                 </select>
               </div>
+              <div class="input-group">
+                <label for="sel2">Company Account:</label>
+                <select v-model="newAccount.company" class="form-control" id="sel2">
+                  <option value="true">True</option>
+                  <option value="false">False</option>
+                </select>
+              </div>
             </div>
             <div class="panel-footer">
               <button v-on:click="submitNew" type="button" class="btn btn-primary">Submit Form</button>
@@ -67,7 +74,8 @@
               <span v-if="props.column.field === '_id'"><strong>{{ props.row._id }}</strong></span>
               <span v-if="props.column.field === 'name'">{{ props.row.name }}</span>
               <span v-if="props.column.field === 'description'">{{ props.row.description }}</span>
-              <span v-if="props.column.field === 'public'">{{ props.row.public}}</span>
+              <span v-if="props.column.field === 'public'">{{ props.row.public }}</span>
+              <span v-if="props.column.field === 'company'">{{ props.row.company }}</span>
               <span v-if="props.column.field === 'created'">{{ props.row.created | dateString}}</span>
               <span v-if="props.column.field === 'buttons'"><router-link :to="'/account/' + props.row._id" type="button" class="btn btn-primary">Access Account</router-link></span>
             </template>
@@ -92,7 +100,8 @@ export default {
         name: 'X\'s Personal Account',
         description: 'Premium personal banking',
         owner: 'X',
-        public: true
+        public: "true",
+        company: "false"
       },
       allAccounts: {
         columns: [
@@ -111,6 +120,11 @@ export default {
           {
             label: 'Public?',
             field: 'public',
+            type: 'boolean'
+          },
+          {
+            label: 'Company?',
+            field: 'company',
             type: 'boolean'
           },
           {
