@@ -56,16 +56,22 @@
           <vue-good-table
           :columns="tables.transactions"
           :rows="transactions"
-          :filterable="true"
-          :globalSearch="true"
-          :paginate="true"
-          :defaultSortBy="{field: 'created', type: 'desc'}"
+          :search-options="{
+            enabled: true
+          }"
+          :pagination-options="{
+            enabled: true
+          }"
+          :sort-options="{
+            enabled: true,
+            initialSortBy: {field: 'created', type: 'desc'}
+          }"
           >
             <template slot="table-row" scope="props">
-              <td>{{ props.row.created | dateString}}</td>
-              <td>{{ props.row.amount | currency }} {{ props.row.currency }}</td>
-              <td :title="props.row.other._id"><strong>{{ props.row.other.name }}</strong></td>
-              <td :title="props.row._id">{{ props.row.description }}</td>
+              <span v-if="props.column.field === 'created'">{{ props.row.created | dateString}}</span>
+              <span v-if="props.column.field === 'amount'">{{ props.row.amount | currency }} {{ props.row.currency }}</span>
+              <span :title="props.row.other._id" v-if="props.column.field === 'other.name'"><strong>{{ props.row.other.name }}</strong></span>
+              <span :title="props.row._id" v-if="props.column.field === 'description'">{{ props.row.description }}</span>
             </template>
           </vue-good-table>
           <div class="panel-footer">
@@ -83,17 +89,23 @@
           <vue-good-table
           :columns="tables.wages"
           :rows="account.wages"
-          :filterable="true"
-          :globalSearch="true"
-          :paginate="true"
+          :search-options="{
+            enabled: true
+          }"
+          :pagination-options="{
+            enabled: true
+          }"
+          :sort-options="{
+            enabled: true,
+            initialSortBy: {field: 'value', type: 'desc'}
+          }"
           >
             <template slot="table-row" scope="props">
-              <td><strong>{{ props.row._id }}</strong></td>
-              <td>{{ props.row.name }}</td>
-              <td>{{ props.row.description }}</td>
-              <td>{{ props.row.value | currency}}</td>
-              <td>{{ props.row.currency}}</td>
-              <td><button class="btn btn-danger" v-on:click="deleteWage(props.row)">Remove</button></td>
+              <span v-if="props.column.field === '_id'"><strong>{{ props.row._id }}</strong></span>
+              <span v-if="props.column.field === 'name'">{{ props.row.name }}</span>
+              <span v-if="props.column.field === 'description'">{{ props.row.description }}</span>
+              <span v-if="props.column.field === 'value'">{{ props.row.value | currency}} {{props.row.currency}}</span>
+              <span v-if="props.column.field === 'delete'"><button class="btn btn-danger" v-on:click="deleteWage(props.row)">Remove</button></span>
             </template>
           </vue-good-table>
           <table class="table table-striped table-bordered">
@@ -123,13 +135,10 @@
           <vue-good-table
           :columns="tables.users"
           :rows="account.users"
-          :filterable="true"
-          :globalSearch="true"
-          :paginate="true"
           >
             <template slot="table-row" scope="props">
-              <td>{{ props.row.name }}</td>
-              <td>{{ props.row.level | accessLevel }}</td>
+              <span v-if="props.column.field === 'name'">{{ props.row.name }}</span>
+              <span v-if="props.column.field === 'level'">{{ props.row.level | accessLevel }}</span>
             </template>
           </vue-good-table>
           <div class="panel-footer">
@@ -200,10 +209,10 @@
             :paginate="true"
             styleClass="table table-bordered condensed">
               <template slot="table-row" scope="props">
-                <td>{{ props.row.name }}</td>
-                <td>{{ props.row.description}}</td>
-                <td>{{ props.row.value | currency }}</td>
-                <td><button type="button" v-on:click="requestWage(props.row._id)" class="btn btn-primary">Request</button></td>
+                <span v-if="props.column.field === 'name'">{{ props.row.name }}</span>
+                <span v-if="props.column.field === 'description'">{{ props.row.description }}</span>
+                <span v-if="props.column.field === 'value'">{{ props.row.value | currency }}</span>
+                <span v-if="props.column.field === 'request'"><button type="button" v-on:click="requestWage(props.row._id)" class="btn btn-primary">Request</button></span>
               </template>
             </vue-good-table>
           </div>
@@ -270,11 +279,9 @@ export default {
             type: 'decimal'
           },
           {
-            label: 'Currency',
-            field: 'currency'
-          },
-          {
-            label: 'Delete'
+            label: 'Delete',
+            field: 'delete',
+            sortable: false
           }
         ],
         transactions: [
@@ -289,10 +296,14 @@ export default {
             type: 'decimal'
           },
           {
-            label: 'Other Account'
+            label: 'Other Account',
+            field: 'other.name',
+            sortable: false
           },
           {
-            label: 'Description'
+            label: 'Description',
+            field: 'description',
+            sortable: false
           }
         ],
         wagesList: [
@@ -310,7 +321,9 @@ export default {
             type: 'decimal'
           },
           {
-            label: 'Request'
+            label: 'Request',
+            field: 'request',
+            sortable: false
           }
         ],
         wageRequests: [
